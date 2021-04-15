@@ -1,5 +1,5 @@
 const addButton = document.querySelector('.addButton');
-var inputValue = document.querySelector('.input');
+var input = document.querySelector('.input');
 const container = document.querySelector('.container');
 
 class item{
@@ -33,9 +33,30 @@ class item{
         itemBox.appendChild(editButton);
         itemBox.appendChild(removeButton);
 
+        editButton.addEventListener('click',() => this.edit(input));
 
+        removeButton.addEventListener('click',() => this.remove(itemBox));
 
+    }
+
+    edit(input){
+        input.disabled = !input.disabled;
+    }
+    remove(item){
+        container.removeChild(item);
     }
 }
 
-new item("Sport");
+function check(){
+    if(input.value != ""){
+        new item(input.value);
+        input.value = "";
+    }
+}
+
+addButton.addEventListener('click', check);
+window.addEventListener('keydown', (e) =>{
+    if(e.which == 13){
+        check();
+    }
+})
